@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA0B3572287020F400D5331F /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B3571287020F400D5331F /* LaunchAtLogin */; };
 		AA1F6EF0286FD3BE00350040 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F6EEF286FD3BE00350040 /* About.swift */; };
-		AA30750C28702AB10070C8AC /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA30750B28702AB10070C8AC /* appicon.png */; };
 		AA30750E28702C140070C8AC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AA30750D28702C140070C8AC /* .gitignore */; };
 		AA40E16F28695528000875C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E16E28695528000875C3 /* AppDelegate.swift */; };
 		AA40E17128695528000875C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E17028695528000875C3 /* ViewController.swift */; };
@@ -40,7 +39,6 @@
 /* Begin PBXFileReference section */
 		AA1F6EEF286FD3BE00350040 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		AA26B85A28695A1000C546D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AA30750B28702AB10070C8AC /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appicon.png; path = ../../../../Downloads/appicon.png; sourceTree = "<group>"; };
 		AA30750D28702C140070C8AC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		AA40E16B28695528000875C3 /* MacCopier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacCopier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA40E16E28695528000875C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 		AA40E16D28695528000875C3 /* MacCopier */ = {
 			isa = PBXGroup;
 			children = (
-				AA30750B28702AB10070C8AC /* appicon.png */,
 				AA26B85A28695A1000C546D8 /* Info.plist */,
 				AA40E16E28695528000875C3 /* AppDelegate.swift */,
 				AA40E17028695528000875C3 /* ViewController.swift */,
@@ -263,7 +260,6 @@
 			files = (
 				AA30750E28702C140070C8AC /* .gitignore in Resources */,
 				AA40E1732869552B000875C3 /* Assets.xcassets in Resources */,
-				AA30750C28702AB10070C8AC /* appicon.png in Resources */,
 				AA40E1762869552B000875C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

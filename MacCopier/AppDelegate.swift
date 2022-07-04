@@ -62,6 +62,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if timer != nil {
             timer!.invalidate()
         }
+        if db != nil {
+            sqlite3_finalize(db)
+        }
         NSApplication.shared.terminate(self)
     }
     
