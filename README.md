@@ -2,7 +2,7 @@
     <a href="https://github.com/DreamSaddle/MacCopier/releases">
     <img src="https://img.shields.io/github/v/release/DreamSaddle/MacCopier?style=badge&color=58C9B9" alt="RELEASE"/>
     </a>
-    <a href="https://github.com/DreamSaddle/MacCopier/commits/master">
+    <a href="https://github.com/DreamSaddle/MacCopier/commits/main">
     <img src="https://img.shields.io/github/last-commit/DreamSaddle/MacCopier?style=badge&color=30A9DE" alt="LAST COMMIT"/>
     </a>
     <a href="https://github.com/DreamSaddle/MacCopier/issues">
