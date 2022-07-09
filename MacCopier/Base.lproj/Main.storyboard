@@ -677,6 +677,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacCopier" customModuleProvider="target">
                     <connections>
                         <outlet property="a" destination="egg-s4-jCX" id="Ua5-xw-tgw"/>
+                        <outlet property="autoPasteMenuItem" destination="ioc-Jz-R5r" id="rWY-g5-rjW"/>
                         <outlet property="launchOnLoginMenuItem" destination="iHu-8A-5st" id="2S8-Hb-Tq2"/>
                         <outlet property="menu" destination="ui6-lp-8e6" id="QJk-bD-iXv"/>
                     </connections>
@@ -685,10 +686,10 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="ui6-lp-8e6">
                     <items>
-                        <menuItem title="关于 MacCopier" id="egg-s4-jCX">
+                        <menuItem title="自动粘贴" id="ioc-Jz-R5r">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="openAboutWindow:" target="Voe-Tx-rLC" id="yCz-uM-4td"/>
+                                <action selector="changeAutoPaste:" target="Voe-Tx-rLC" id="fd6-SQ-XRI"/>
                             </connections>
                         </menuItem>
                         <menuItem title="登录时启动" id="iHu-8A-5st">
@@ -696,6 +697,12 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="changeLaunchOnLogin:" target="Voe-Tx-rLC" id="jDo-Jw-aZR"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="关于 MacCopier" id="egg-s4-jCX">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="openAboutWindow:" target="Voe-Tx-rLC" id="yCz-uM-4td"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="QDg-lU-G4u"/>

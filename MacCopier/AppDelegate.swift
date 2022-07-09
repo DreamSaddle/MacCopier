@@ -12,11 +12,30 @@ class Message {
     }
 }
 
+// 扩展 UserDefaults 存储用户数据
+extension UserDefaults {
+    public struct Keys {
+        static let autoPaste = "autoPaste"
+    }
+    
+    struct ConfigValues {
+        static let autoPaste = false
+    }
+    
+    @objc dynamic public var autoPaste: Bool {
+        get { bool(forKey: Keys.autoPaste) }
+        set { set(newValue, forKey: Keys.autoPaste) }
+    }
+}
+
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
     // 创建状态栏按钮
     @IBOutlet weak var menu: NSMenu!
+    // 自动粘贴选项菜单
+    @IBOutlet weak var autoPasteMenuItem: NSMenuItem!
     // 登录时启动选项菜单
     @IBOutlet weak var launchOnLoginMenuItem: NSMenuItem!
     
@@ -31,6 +50,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // 最新一条短信的接收时间
     var updateTime: Int32 = 0
     
+    var clipboard = Clipboard.init()
+    
+    
+    private var fullDiskAccessAlert: NSAlert {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("“MacCopier“启动失败, 可能是没有设置“完全磁盘访问权限”。", comment: "")
+        alert.informativeText = NSLocalizedString("在“系统偏好设置”中的“安全性和隐私”设置中授予此应用程序权限, 设置完成后请重新打开“MacCopier“", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("拒绝", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("打开系统偏好设置", comment: ""))
+        alert.icon = NSImage(named: "NSSecurity")
+        return alert
+    }
+    let fullDiskAccessURL = URL(
+        string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
+    )
+    
+    
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem.menu = menu
         if let button = statusItem.button {
@@ -38,14 +76,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         launchOnLoginMenuItem.state = LaunchAtLogin.isEnabled ? .on : .off
+        autoPasteMenuItem.state = UserDefaults.standard.autoPaste ? .on : .off
         
         // 打开数据库连接
         db = openDatabase()
         if (db == nil) {
-           return
+            return
         }
         self.updateTime = getLatestMessageTime()
-        
         
         timer = Timer.init(timeInterval: 2, repeats: true) { (t) in
             let latestMessageTime = self.getLatestMessageTime()
@@ -57,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         RunLoop.current.add(timer!, forMode: RunLoop.Mode.default)
         timer!.fire()
     }
-
+    
     @IBAction func quitApp(_ sender: Any) {
         if timer != nil {
             timer!.invalidate()
@@ -66,6 +104,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             sqlite3_finalize(db)
         }
         NSApplication.shared.terminate(self)
+    }
+    
+    @IBAction func changeAutoPaste(_ sender: Any) {
+        if autoPasteMenuItem.state == .off && self.clipboard.checkAutoPastePermission() == false {
+            return
+        }
+        autoPasteMenuItem.state = autoPasteMenuItem.state == .on ? .off : .on
+        UserDefaults.standard.autoPaste = (autoPasteMenuItem.state == .on)
     }
     
     @IBAction func changeLaunchOnLogin(_ sender: Any) {
@@ -88,9 +134,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let results = re.matches(in: msgText, range: NSRange(location: 0, length: msgText.count))
                     for result in results {
                         let code = (msgText as NSString).substring(with: result.range)
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.declareTypes([.string], owner: nil)
-                        pasteboard.setString(code, forType: .string)
+                        self.clipboard.copy(text: code)
+                        if UserDefaults.standard.autoPaste {
+                            self.clipboard.paste()
+                        }
                     }
                 } catch {
                     print("Regex Error.")
@@ -117,11 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if sqlite3_open(path, &db) == SQLITE_OK {
             return db
         } else {
-            let alert = NSAlert.init()
-            alert.messageText = "数据库打开失败"
-            alert.informativeText = "请检查应用是否具有 完整磁盘访问权限！"
-            alert.addButton(withTitle: "确定")
-            alert.runModal()
+            DispatchQueue.main.async(execute: showFullDiskAccessInquiryWindow)
             return nil
         }
     }
@@ -169,6 +212,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sqlite3_finalize(statement)
         
         return message
+    }
+    
+    
+    func showFullDiskAccessInquiryWindow() {
+        if fullDiskAccessAlert.runModal() == NSApplication.ModalResponse.alertSecondButtonReturn {
+            if let url = fullDiskAccessURL {
+                NSWorkspace.shared.open(url)
+            }
+        }
+        
+        // 无论如何都退出吧
+        // 目前我的能力有限, 不能做到设置完权限后再次连接数据库打开
+        // 也希望有能力的小伙伴提交 PR 完善
+        // 包括在开启 自动粘贴 选项时也会有这个问题
+        NSApplication.shared.terminate(self)
     }
 }
 
