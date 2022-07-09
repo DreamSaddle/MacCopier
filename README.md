@@ -20,7 +20,7 @@ MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到
 ## 功能列表
 
 - [x] 收到验证码短信后自动提取验证码到到剪贴板
-- [ ] 自动粘贴到当前光标处
+- [x] 自动粘贴到当前光标处
 
 ## 隐私信息收集
 
@@ -50,11 +50,16 @@ MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到
 ![image.png](https://file.taohan.xyz/20220702/image_992818305146290176.png)
 
 3. 您也可以勾选 `登录时启动`，这将会在下次登录系统时自动运行此应用。
-![image.png](https://file.taohan.xyz/20220702/image_992821654058958848.png)
+  ![image.png](https://file.taohan.xyz/20220702/image_992821654058958848.png)
+
+4. 您也可以勾选 `自动粘贴`，这将会在提取出验证码后自动粘贴到系统当前光标处。`自动粘贴`功能需要您为 `MacCopier`开启`辅助功能`权限。
+
+  ![autoPaste](https://file.taohan.xyz/20220709/DgdaY1_995461225485697024.png)
 
 ## 项目依赖
 
 - [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin) 提供登录时启动功能
+- [Sauce](https://github.com/Clipy/Sauce) 提供自动粘贴功能
 
 ## 其它
 

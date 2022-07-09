@@ -17,6 +17,8 @@
 		AA40E1812869552B000875C3 /* MacCopierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E1802869552B000875C3 /* MacCopierTests.swift */; };
 		AA40E18B2869552B000875C3 /* MacCopierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E18A2869552B000875C3 /* MacCopierUITests.swift */; };
 		AA40E18D2869552B000875C3 /* MacCopierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E18C2869552B000875C3 /* MacCopierUITestsLaunchTests.swift */; };
+		AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */ = {isa = PBXBuildFile; productRef = AA8299FE2879BA0200FCA4BE /* Sauce */; };
+		AA829A012879BB2900FCA4BE /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA829A002879BB2900FCA4BE /* Clipboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,7 @@
 		AA40E1862869552B000875C3 /* MacCopierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacCopierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA40E18A2869552B000875C3 /* MacCopierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCopierUITests.swift; sourceTree = "<group>"; };
 		AA40E18C2869552B000875C3 /* MacCopierUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCopierUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AA829A002879BB2900FCA4BE /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */,
 				AA0B3572287020F400D5331F /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +123,7 @@
 				AA40E1742869552B000875C3 /* Main.storyboard */,
 				AA40E1772869552B000875C3 /* MacCopier.entitlements */,
 				AA1F6EEF286FD3BE00350040 /* About.swift */,
+				AA829A002879BB2900FCA4BE /* Clipboard.swift */,
 			);
 			path = MacCopier;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			name = MacCopier;
 			packageProductDependencies = (
 				AA0B3571287020F400D5331F /* LaunchAtLogin */,
+				AA8299FE2879BA0200FCA4BE /* Sauce */,
 			);
 			productName = MacCopier;
 			productReference = AA40E16B28695528000875C3 /* MacCopier.app */;
@@ -241,6 +247,7 @@
 			mainGroup = AA40E16228695528000875C3;
 			packageReferences = (
 				AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */,
 			);
 			productRefGroup = AA40E16C28695528000875C3 /* Products */;
 			projectDirPath = "";
@@ -308,6 +315,7 @@
 			files = (
 				AA40E17128695528000875C3 /* ViewController.swift in Sources */,
 				AA1F6EF0286FD3BE00350040 /* About.swift in Sources */,
+				AA829A012879BB2900FCA4BE /* Clipboard.swift in Sources */,
 				AA40E16F28695528000875C3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +673,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/taohan/Sauce.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -672,6 +688,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
+		};
+		AA8299FE2879BA0200FCA4BE /* Sauce */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */;
+			productName = Sauce;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
