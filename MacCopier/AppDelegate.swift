@@ -56,10 +56,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var fullDiskAccessAlert: NSAlert {
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("“MacCopier“启动失败, 可能是没有设置“完全磁盘访问权限”。", comment: "")
-        alert.informativeText = NSLocalizedString("在“系统偏好设置”中的“安全性和隐私”设置中授予此应用程序权限, 设置完成后请重新打开“MacCopier“", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("拒绝", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("打开系统偏好设置", comment: ""))
+        alert.messageText = "“MacCopier“启动失败, 可能是没有设置“完全磁盘访问权限”。"
+        alert.informativeText = "在“系统偏好设置”中的“安全性和隐私”设置中授予此应用程序权限, 设置完成后请重新打开“MacCopier“"
+        alert.addButton(withTitle: "拒绝")
+        alert.addButton(withTitle: "打开系统偏好设置")
         alert.icon = NSImage(named: "NSSecurity")
         return alert
     }

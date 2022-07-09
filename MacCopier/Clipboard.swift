@@ -7,10 +7,10 @@ class Clipboard {
     private var accessibilityAlert: NSAlert {
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("“MacCopier“想要使用“辅助功能”控制此计算机。", comment: "")
-        alert.informativeText = NSLocalizedString("在“系统偏好设置”中的“安全性和隐私”设置中授予此应用程序权限, 设置完成后请重新点击“自动粘贴“", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("拒绝", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("打开系统偏好设置", comment: ""))
+        alert.messageText = "“MacCopier“想要使用“辅助功能”控制此计算机。"
+        alert.informativeText = "在“系统偏好设置”中的“安全性和隐私”设置中授予此应用程序权限, 设置完成后请重新点击“自动粘贴“"
+        alert.addButton(withTitle: "拒绝")
+        alert.addButton(withTitle: "打开系统偏好设置")
         alert.icon = NSImage(named: "NSSecurity")
         return alert
     }
