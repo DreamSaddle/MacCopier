@@ -16,15 +16,21 @@ class Message {
 extension UserDefaults {
     public struct Keys {
         static let autoPaste = "autoPaste"
+        static let hiddenStatusBar = "hiddenStatusBar"
     }
     
     struct ConfigValues {
         static let autoPaste = false
+        static let hiddenStatusBar = false
     }
     
     @objc dynamic public var autoPaste: Bool {
         get { bool(forKey: Keys.autoPaste) }
         set { set(newValue, forKey: Keys.autoPaste) }
+    }
+    @objc dynamic public var hiddenStatusBar: Bool {
+        get { bool(forKey: Keys.hiddenStatusBar) }
+        set { set(newValue, forKey: Keys.hiddenStatusBar) }
     }
 }
 
@@ -34,24 +40,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // 创建状态栏按钮
     @IBOutlet weak var menu: NSMenu!
-    // 自动粘贴选项菜单
     @IBOutlet weak var autoPasteMenuItem: NSMenuItem!
-    // 登录时启动选项菜单
     @IBOutlet weak var launchOnLoginMenuItem: NSMenuItem!
+    @IBOutlet weak var hiddenStatusBarMenuItem: NSMenuItem!
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     let codePattern = "([0-9]{4,8})"
     
     var timer: Timer? = nil
-    var dbPath = "Messages/chat.db"
+    let dbPath = "Messages/chat.db"
     // 数据库连接
     var db: OpaquePointer?
     // 最新一条短信的接收时间
     var updateTime: Int32 = 0
-    
-    var clipboard = Clipboard.init()
-    
+    // 记录上一次的 是否隐藏状态栏图标 缓存情况
+    // applicationDidFinishLaunching 比 applicationDidBecomeActive 先执行
+    // 可能就会存在我最后设置的是不显示, 再次启动此应用时先调用 applicationDidFinishLaunching 设置不显示
+    // 再执行 applicationDidBecomeActive 就又显示的情况
+    var visibleStatusBarCacheValue = false
+    let clipboard = Clipboard.init()
     
     private var fullDiskAccessAlert: NSAlert {
         let alert = NSAlert()
@@ -67,6 +75,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
     )
     
+    func applicationWillBecomeActive(_ notification: Notification) {
+        if !self.visibleStatusBarCacheValue {
+            self.visibleStatusBarCacheValue = true
+        } else {
+            self.changeStatusBarVisible(visible: true)
+        }
+    }
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -74,11 +89,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem.button {
             button.image = NSImage(named: "StatusIcon")
         }
-        
         launchOnLoginMenuItem.state = LaunchAtLogin.isEnabled ? .on : .off
         autoPasteMenuItem.state = UserDefaults.standard.autoPaste ? .on : .off
+        hiddenStatusBarMenuItem.state = UserDefaults.standard.hiddenStatusBar ? .on : .off
+        self.visibleStatusBarCacheValue = !UserDefaults.standard.hiddenStatusBar
+        self.changeStatusBarVisible(visible: !UserDefaults.standard.hiddenStatusBar)
         
-        // 打开数据库连接
         db = openDatabase()
         if (db == nil) {
             return
@@ -94,6 +110,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         RunLoop.current.add(timer!, forMode: RunLoop.Mode.default)
         timer!.fire()
+    }
+    
+    func changeStatusBarVisible(visible: Bool) {
+        statusItem.isVisible = visible
+        UserDefaults.standard.hiddenStatusBar = !visible
+        hiddenStatusBarMenuItem.state = visible ? .off : .on
     }
     
     @IBAction func quitApp(_ sender: Any) {
@@ -122,6 +144,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func openAboutWindow(_ sender: Any) {
         let about = About()
         about.openAbout(sender)
+    }
+    
+    @IBAction func hiddenStatusBar(_ sender: Any) {
+        let visible = hiddenStatusBarMenuItem.state == .on
+        self.changeStatusBarVisible(visible: visible)
+        if !visible {
+            // 隐藏状态栏图标后需要失去 MacCopier 的窗口激活状态
+            // 否则在没有点击其它窗口的情况下, 再次打开 MacCopier 就不能执行 applicationWillBecomeActive 事件了
+            NSApplication.shared.hide(nil)
+        }
     }
     
     func getLatestMessageCode() {

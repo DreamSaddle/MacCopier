@@ -678,6 +678,7 @@
                     <connections>
                         <outlet property="a" destination="egg-s4-jCX" id="Ua5-xw-tgw"/>
                         <outlet property="autoPasteMenuItem" destination="ioc-Jz-R5r" id="rWY-g5-rjW"/>
+                        <outlet property="hiddenStatusBarMenuItem" destination="mvW-w7-UAm" id="o0W-Zo-cD9"/>
                         <outlet property="launchOnLoginMenuItem" destination="iHu-8A-5st" id="2S8-Hb-Tq2"/>
                         <outlet property="menu" destination="ui6-lp-8e6" id="QJk-bD-iXv"/>
                     </connections>
@@ -697,6 +698,13 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="changeLaunchOnLogin:" target="Voe-Tx-rLC" id="jDo-Jw-aZR"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="隐藏状态栏图标" id="mvW-w7-UAm">
+                            <attributedString key="attributedTitle"/>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="hiddenStatusBar:" target="Voe-Tx-rLC" id="qaz-jd-U1X"/>
                             </connections>
                         </menuItem>
                         <menuItem title="关于 MacCopier" id="egg-s4-jCX">
