@@ -17,6 +17,10 @@
 
 MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到短信验证码后自动复制到剪贴板功能的软件。
 
+> **Warning**
+> 
+> 请务必从[这里下载](https://github.com/DreamSaddle/MacCopier/releases)，此应用目前没有提供其它下载链接，以防止造成您的数据泄露。
+
 ## 功能列表
 
 - [x] 收到验证码短信后自动提取验证码到到剪贴板
@@ -24,11 +28,11 @@ MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到
 
 ## 隐私信息收集
 
-此项目为开源项目。应用通过不断扫描 `~/Library/Messages/chat.db` 数据库文件获取最新的短信验证码，**期间不会上传任何短信内容**。
+此应用为开源项目。应用通过不断扫描 `~/Library/Messages/chat.db` 数据库文件获取最新的短信验证码，**期间不会上传系统中任何数据**。
 
 ## 安装
 
-1. [点击下载](https://file.taohan.xyz/20220703/MacCopier.zip)
+1. [点击下载](https://github.com/DreamSaddle/MacCopier/releases)
 2. 解压后，将 MacCopier.app 拖动到 应用程序 目录即可
 
 ![image.png](https://file.taohan.xyz/20220702/image_992820412851159040.png)
