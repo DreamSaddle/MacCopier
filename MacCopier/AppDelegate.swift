@@ -170,6 +170,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         if UserDefaults.standard.autoPaste {
                             self.clipboard.paste()
                         }
+                        
+                        break
                     }
                 } catch {
                     print("Regex Error.")
