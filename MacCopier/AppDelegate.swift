@@ -160,7 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let message = getLatestMessage()
         if message != nil {
             let msgText = message!.text
-            if msgText.contains("code") || msgText.contains("码") {
+            if msgText.contains("code") || msgText.contains("码") || msgText.contains("コード") {
                 do {
                     let re = try NSRegularExpression(pattern: codePattern, options: [])
                     let results = re.matches(in: msgText, range: NSRange(location: 0, length: msgText.count))
