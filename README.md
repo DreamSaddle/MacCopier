@@ -18,7 +18,7 @@
 MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到短信验证码后自动复制到剪贴板功能的软件。
 
 > **Warning**
-> 
+>
 > 请务必从[这里下载](https://github.com/DreamSaddle/MacCopier/releases)，此应用目前没有提供其它下载链接，以防止造成您的数据泄露。
 
 ## 功能列表
@@ -35,7 +35,7 @@ MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到
 1. [点击下载](https://github.com/DreamSaddle/MacCopier/releases)
 2. 解压后，将 MacCopier.app 拖动到 应用程序 目录即可
 
-![image.png](https://file.taohan.xyz/20220702/image_992820412851159040.png)
+![image.png](./Screenshots/4.png)
 
 ## 使用
 
@@ -48,17 +48,16 @@ MacCopier(Message Authentication Code Copier) 是一个提供在 Macos 中收到
 安装好软件后，需要为其设置 **完全磁盘访问权限**。步骤如下：
 
 1. 打开 系统偏好设置 > 安全性与隐私
-![image.png](https://file.taohan.xyz/20220702/image_992818096714547200.png)
+![image.png](./Screenshots/1.png)
 
 2. 左下角解锁设置后，找到 完全磁盘访问权限 选项，在右侧列表中找到 MacCopier 将其勾选上即可。
-![image.png](https://file.taohan.xyz/20220702/image_992818305146290176.png)
+![image.png](./Screenshots/2.png)
 
 3. 您也可以勾选 `登录时启动`，这将会在下次登录系统时自动运行此应用。
-  ![image.png](https://file.taohan.xyz/20220702/image_992821654058958848.png)
+
+![image.png](./Screenshots/5.png)
 
 4. 您也可以勾选 `自动粘贴`，这将会在提取出验证码后自动粘贴到系统当前光标处。`自动粘贴`功能需要您为 `MacCopier`开启`辅助功能`权限。
-
-  ![autoPaste](https://file.taohan.xyz/20220709/DgdaY1_995461225485697024.png)
 
 ## 项目依赖
 
