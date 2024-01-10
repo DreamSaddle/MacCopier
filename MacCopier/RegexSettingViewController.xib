@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="RegexSettingViewController" customModule="MacCopier" customModuleProvider="target">
+            <connections>
+                <outlet property="msgCodeMatchPatternTextField" destination="77R-W3-0SY" id="acy-Ts-Wob"/>
+                <outlet property="msgMatchKeywordsTextField" destination="rgS-Hz-Oxh" id="DPc-W0-FM7"/>
+                <outlet property="view" destination="M0h-VL-hMN" id="ZSr-EA-iG3"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="M0h-VL-hMN">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <gridView ambiguous="YES" xPlacement="leading" yPlacement="top" rowAlignment="lastBaseline" rowSpacing="8" columnSpacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zrv-gY-Csh">
+                    <rect key="frame" x="20" y="177" width="370" height="103"/>
+                    <constraints>
+                        <constraint firstItem="rgS-Hz-Oxh" firstAttribute="trailing" secondItem="77R-W3-0SY" secondAttribute="trailing" id="fxp-Gr-KuT"/>
+                        <constraint firstAttribute="trailing" secondItem="rgS-Hz-Oxh" secondAttribute="trailing" id="qZI-aF-20f"/>
+                    </constraints>
+                    <rows>
+                        <gridRow height="25" topPadding="4" id="J9F-jv-xZa"/>
+                        <gridRow height="25" topPadding="4" id="UAj-Yb-LA9"/>
+                        <gridRow height="25" topPadding="4" id="IiF-od-sbN"/>
+                    </rows>
+                    <columns>
+                        <gridColumn id="jGa-Rj-aAh"/>
+                        <gridColumn width="250" id="VsX-xP-OBs"/>
+                    </columns>
+                    <gridCells>
+                        <gridCell row="J9F-jv-xZa" column="jGa-Rj-aAh" id="Y9A-xl-iU8">
+                            <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LuY-pZ-Bey">
+                                <rect key="frame" x="-2" y="80" width="71" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="匹配关键词" id="9tn-Hx-Qqs">
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </gridCell>
+                        <gridCell row="J9F-jv-xZa" column="VsX-xP-OBs" id="ZZm-fZ-bAJ">
+                            <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgS-Hz-Oxh">
+                                <rect key="frame" x="120" y="78" width="100" height="21"/>
+                                <textFieldCell key="cell" controlSize="large" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="nwB-rh-3BU">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="msgMatchKeywordsTextFieldChanged:" target="-2" id="hg1-cz-ZFA"/>
+                                </connections>
+                            </textField>
+                        </gridCell>
+                        <gridCell row="UAj-Yb-LA9" column="jGa-Rj-aAh" id="Piz-a7-Hra">
+                            <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gIB-KI-L2u">
+                                <rect key="frame" x="-2" y="42" width="111" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="验证码正则表达式" id="RUO-ZK-q87">
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </gridCell>
+                        <gridCell row="UAj-Yb-LA9" column="VsX-xP-OBs" id="GeE-Oh-Vl3">
+                            <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="77R-W3-0SY">
+                                <rect key="frame" x="120" y="41" width="100" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="jGL-45-bf0">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="msgCodeMatchPatternTextFieldChanged:" target="-2" id="Frp-oS-zls"/>
+                                </connections>
+                            </textField>
+                        </gridCell>
+                        <gridCell row="IiF-od-sbN" column="jGa-Rj-aAh" id="9md-gI-npE"/>
+                        <gridCell row="IiF-od-sbN" column="VsX-xP-OBs" id="X2c-R4-lcI"/>
+                    </gridCells>
+                </gridView>
+            </subviews>
+            <point key="canvasLocation" x="-191" y="-58"/>
+        </customView>
+    </objects>
+</document>

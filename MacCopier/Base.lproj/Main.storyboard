@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -677,27 +678,19 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacCopier" customModuleProvider="target">
                     <connections>
                         <outlet property="a" destination="egg-s4-jCX" id="Ua5-xw-tgw"/>
-                        <outlet property="autoPasteMenuItem" destination="ioc-Jz-R5r" id="rWY-g5-rjW"/>
                         <outlet property="hiddenStatusBarMenuItem" destination="mvW-w7-UAm" id="o0W-Zo-cD9"/>
-                        <outlet property="launchOnLoginMenuItem" destination="iHu-8A-5st" id="2S8-Hb-Tq2"/>
                         <outlet property="menu" destination="ui6-lp-8e6" id="QJk-bD-iXv"/>
+                        <outlet property="settingMenuItem" destination="Pn9-yc-bvo" id="Wzg-WN-8fS"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="ui6-lp-8e6">
                     <items>
-                        <menuItem title="自动粘贴" id="ioc-Jz-R5r">
+                        <menuItem title="高级设置" id="Pn9-yc-bvo" userLabel="高级设置">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="changeAutoPaste:" target="Voe-Tx-rLC" id="fd6-SQ-XRI"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="登录时启动" id="iHu-8A-5st">
-                            <attributedString key="attributedTitle"/>
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="changeLaunchOnLogin:" target="Voe-Tx-rLC" id="jDo-Jw-aZR"/>
+                                <action selector="openSettingWindow:" target="Voe-Tx-rLC" id="aK3-VH-6j4"/>
                             </connections>
                         </menuItem>
                         <menuItem title="隐藏状态栏图标" id="mvW-w7-UAm">

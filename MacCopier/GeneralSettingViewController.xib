@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralSettingViewController" customModule="MacCopier" customModuleProvider="target">
+            <connections>
+                <outlet property="autoPasteButton" destination="1a3-aF-4B5" id="pBw-UV-dSw"/>
+                <outlet property="launchAtLoginButton" destination="jm8-rF-vhC" id="o9o-zO-gDs"/>
+                <outlet property="view" destination="c22-O7-iKe" id="AUb-f0-b3P"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <gridView fixedFrame="YES" xPlacement="leading" yPlacement="bottom" rowAlignment="none" rowSpacing="8" columnSpacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="5pz-7Y-arR">
+                    <rect key="frame" x="0.0" y="126" width="204" height="154"/>
+                    <rows>
+                        <gridRow id="GqG-Ua-qXV"/>
+                        <gridRow id="cA6-FC-hfe"/>
+                        <gridRow id="If6-io-IO5"/>
+                        <gridRow id="CWM-NN-xxI"/>
+                        <gridRow id="KH3-NN-qcp"/>
+                    </rows>
+                    <columns>
+                        <gridColumn id="qFv-bq-Nu3"/>
+                        <gridColumn id="jv8-Ew-wHL"/>
+                    </columns>
+                    <gridCells>
+                        <gridCell row="GqG-Ua-qXV" column="qFv-bq-Nu3" id="TLo-OF-V6q"/>
+                        <gridCell row="GqG-Ua-qXV" column="jv8-Ew-wHL" id="EVW-yg-V5T">
+                            <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm8-rF-vhC">
+                                <rect key="frame" x="111" y="137" width="93" height="18"/>
+                                <buttonCell key="cell" type="check" title="登录时启动" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wsh-du-lFk">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="launchAtLoginChanged:" target="-2" id="Ndb-H9-Sc4"/>
+                                </connections>
+                            </button>
+                        </gridCell>
+                        <gridCell row="cA6-FC-hfe" column="qFv-bq-Nu3" id="XB3-aT-v4K"/>
+                        <gridCell row="cA6-FC-hfe" column="jv8-Ew-wHL" id="LXO-Kj-f4w">
+                            <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1a3-aF-4B5">
+                                <rect key="frame" x="111" y="113" width="80" height="18"/>
+                                <buttonCell key="cell" type="check" title="自动粘贴" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5KW-Hz-rgl">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="autoPasteChanged:" target="-2" id="Ctj-te-qtO"/>
+                                </connections>
+                            </button>
+                        </gridCell>
+                        <gridCell row="If6-io-IO5" column="qFv-bq-Nu3" id="LMH-cU-lVF"/>
+                        <gridCell row="If6-io-IO5" column="jv8-Ew-wHL" id="glA-F8-5t7"/>
+                        <gridCell row="CWM-NN-xxI" column="qFv-bq-Nu3" id="qgb-4z-gOQ"/>
+                        <gridCell row="CWM-NN-xxI" column="jv8-Ew-wHL" id="oWl-R3-7jE"/>
+                        <gridCell row="KH3-NN-qcp" column="qFv-bq-Nu3" id="Toq-f3-dLW"/>
+                        <gridCell row="KH3-NN-qcp" column="jv8-Ew-wHL" id="Sse-lS-tEo"/>
+                    </gridCells>
+                </gridView>
+            </subviews>
+            <point key="canvasLocation" x="-112" y="50"/>
+        </customView>
+    </objects>
+</document>

@@ -17,8 +17,13 @@
 		AA40E1812869552B000875C3 /* MacCopierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E1802869552B000875C3 /* MacCopierTests.swift */; };
 		AA40E18B2869552B000875C3 /* MacCopierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E18A2869552B000875C3 /* MacCopierUITests.swift */; };
 		AA40E18D2869552B000875C3 /* MacCopierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E18C2869552B000875C3 /* MacCopierUITestsLaunchTests.swift */; };
+		AA4496DB2B4D62BA004EA9A9 /* GeneralSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4496DA2B4D62BA004EA9A9 /* GeneralSettingViewController.xib */; };
+		AA4496DD2B4D62EB004EA9A9 /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4496DC2B4D62EB004EA9A9 /* GeneralSettingViewController.swift */; };
 		AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */ = {isa = PBXBuildFile; productRef = AA8299FE2879BA0200FCA4BE /* Sauce */; };
 		AA829A012879BB2900FCA4BE /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA829A002879BB2900FCA4BE /* Clipboard.swift */; };
+		AAA80DD12B4EC10200B36D7C /* RegexSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA80DD02B4EC10200B36D7C /* RegexSettingViewController.xib */; };
+		AAA80DD32B4EC11400B36D7C /* RegexSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA80DD22B4EC11400B36D7C /* RegexSettingViewController.swift */; };
+		AAD54C722B4987AC00BF113E /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = AAD54C712B4987AC00BF113E /* Settings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +58,11 @@
 		AA40E1862869552B000875C3 /* MacCopierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacCopierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA40E18A2869552B000875C3 /* MacCopierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCopierUITests.swift; sourceTree = "<group>"; };
 		AA40E18C2869552B000875C3 /* MacCopierUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCopierUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AA4496DA2B4D62BA004EA9A9 /* GeneralSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralSettingViewController.xib; sourceTree = "<group>"; };
+		AA4496DC2B4D62EB004EA9A9 /* GeneralSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewController.swift; sourceTree = "<group>"; };
 		AA829A002879BB2900FCA4BE /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
+		AAA80DD02B4EC10200B36D7C /* RegexSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegexSettingViewController.xib; sourceTree = "<group>"; };
+		AAA80DD22B4EC11400B36D7C /* RegexSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexSettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAD54C722B4987AC00BF113E /* Settings in Frameworks */,
 				AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */,
 				AA0B3572287020F400D5331F /* LaunchAtLogin in Frameworks */,
 			);
@@ -124,6 +134,10 @@
 				AA40E1772869552B000875C3 /* MacCopier.entitlements */,
 				AA1F6EEF286FD3BE00350040 /* About.swift */,
 				AA829A002879BB2900FCA4BE /* Clipboard.swift */,
+				AA4496DA2B4D62BA004EA9A9 /* GeneralSettingViewController.xib */,
+				AA4496DC2B4D62EB004EA9A9 /* GeneralSettingViewController.swift */,
+				AAA80DD02B4EC10200B36D7C /* RegexSettingViewController.xib */,
+				AAA80DD22B4EC11400B36D7C /* RegexSettingViewController.swift */,
 			);
 			path = MacCopier;
 			sourceTree = "<group>";
@@ -172,6 +186,7 @@
 			packageProductDependencies = (
 				AA0B3571287020F400D5331F /* LaunchAtLogin */,
 				AA8299FE2879BA0200FCA4BE /* Sauce */,
+				AAD54C712B4987AC00BF113E /* Settings */,
 			);
 			productName = MacCopier;
 			productReference = AA40E16B28695528000875C3 /* MacCopier.app */;
@@ -248,6 +263,7 @@
 			packageReferences = (
 				AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */,
+				AAD54C702B4987AC00BF113E /* XCRemoteSwiftPackageReference "Settings" */,
 			);
 			productRefGroup = AA40E16C28695528000875C3 /* Products */;
 			projectDirPath = "";
@@ -266,7 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA30750E28702C140070C8AC /* .gitignore in Resources */,
+				AAA80DD12B4EC10200B36D7C /* RegexSettingViewController.xib in Resources */,
 				AA40E1732869552B000875C3 /* Assets.xcassets in Resources */,
+				AA4496DB2B4D62BA004EA9A9 /* GeneralSettingViewController.xib in Resources */,
 				AA40E1762869552B000875C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,7 +331,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4496DD2B4D62EB004EA9A9 /* GeneralSettingViewController.swift in Sources */,
 				AA40E17128695528000875C3 /* ViewController.swift in Sources */,
+				AAA80DD32B4EC11400B36D7C /* RegexSettingViewController.swift in Sources */,
 				AA1F6EF0286FD3BE00350040 /* About.swift in Sources */,
 				AA829A012879BB2900FCA4BE /* Clipboard.swift in Sources */,
 				AA40E16F28695528000875C3 /* AppDelegate.swift in Sources */,
@@ -681,6 +701,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		AAD54C702B4987AC00BF113E /* XCRemoteSwiftPackageReference "Settings" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/taohan/Settings.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -693,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */;
 			productName = Sauce;
+		};
+		AAD54C712B4987AC00BF113E /* Settings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAD54C702B4987AC00BF113E /* XCRemoteSwiftPackageReference "Settings" */;
+			productName = Settings;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

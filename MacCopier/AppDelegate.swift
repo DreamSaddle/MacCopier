@@ -2,6 +2,7 @@ import Cocoa
 import SwiftUI
 import SQLite3
 import LaunchAtLogin
+import Settings
 
 class Message {
     var messageDate: Int32
@@ -12,16 +13,25 @@ class Message {
     }
 }
 
+struct Constants {
+    static let DEFAULT_MSG_MATCH_KEYWORDS = "码;code;認証番号;コード"
+    static let DEFAULT_MSG_CODE_MATCH_PATTERN = "\\b([0-9]{4,8})\\b"
+}
+
 // 扩展 UserDefaults 存储用户数据
 extension UserDefaults {
     public struct Keys {
         static let autoPaste = "autoPaste"
         static let hiddenStatusBar = "hiddenStatusBar"
+        static let msgMatchKeywords = "msgMatchKeywords"
+        static let msgCodeMatchPattern = "msgCodeMatchPattern"
     }
     
     struct ConfigValues {
         static let autoPaste = false
         static let hiddenStatusBar = false
+        static let msgMatchKeywords = Constants.DEFAULT_MSG_MATCH_KEYWORDS
+        static let msgCodeMatchPattern = Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
     }
     
     @objc dynamic public var autoPaste: Bool {
@@ -32,22 +42,26 @@ extension UserDefaults {
         get { bool(forKey: Keys.hiddenStatusBar) }
         set { set(newValue, forKey: Keys.hiddenStatusBar) }
     }
+    @objc dynamic public var msgMatchKeywords: String? {
+        get { string(forKey: Keys.msgMatchKeywords) }
+        set { set(newValue, forKey: Keys.msgMatchKeywords) }
+    }
+    @objc dynamic public var msgCodeMatchPattern: String? {
+        get { string(forKey: Keys.msgCodeMatchPattern) }
+        set { set(newValue, forKey: Keys.msgCodeMatchPattern) }
+    }
+}
+
+struct ClipboardController {
+    static let clipboard = Clipboard.init()
 }
 
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    // 创建状态栏按钮
-    @IBOutlet weak var menu: NSMenu!
-    @IBOutlet weak var autoPasteMenuItem: NSMenuItem!
-    @IBOutlet weak var launchOnLoginMenuItem: NSMenuItem!
-    @IBOutlet weak var hiddenStatusBarMenuItem: NSMenuItem!
-    
+
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    
-    let codePattern = "([0-9]{4,8})"
-    
+//    let codePattern = "\\b([0-9]{4,8})\\b"
     var timer: Timer? = nil
     let dbPath = "Messages/chat.db"
     // 数据库连接
@@ -59,7 +73,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // 可能就会存在我最后设置的是不显示, 再次启动此应用时先调用 applicationDidFinishLaunching 设置不显示
     // 再执行 applicationDidBecomeActive 就又显示的情况
     var visibleStatusBarCacheValue = false
-    let clipboard = Clipboard.init()
+    
+    private lazy var settingsWindowController = SettingsWindowController(
+        panes: [
+            GeneralSettingViewController(),
+            RegexSettingViewController()
+        ]
+    )
+    
+    // 创建状态栏按钮
+    @IBOutlet weak var menu: NSMenu!
+    @IBOutlet weak var hiddenStatusBarMenuItem: NSMenuItem!
+    @IBOutlet weak var settingMenuItem : NSMenuItem!
     
     private var fullDiskAccessAlert: NSAlert {
         let alert = NSAlert()
@@ -89,8 +114,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem.button {
             button.image = NSImage(named: "StatusIcon")
         }
-        launchOnLoginMenuItem.state = LaunchAtLogin.isEnabled ? .on : .off
-        autoPasteMenuItem.state = UserDefaults.standard.autoPaste ? .on : .off
         hiddenStatusBarMenuItem.state = UserDefaults.standard.hiddenStatusBar ? .on : .off
         self.visibleStatusBarCacheValue = !UserDefaults.standard.hiddenStatusBar
         self.changeStatusBarVisible(visible: !UserDefaults.standard.hiddenStatusBar)
@@ -124,21 +147,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         if db != nil {
             sqlite3_finalize(db)
+            print("释放 sqlite 连接")
         }
         NSApplication.shared.terminate(self)
     }
     
-    @IBAction func changeAutoPaste(_ sender: Any) {
-        if autoPasteMenuItem.state == .off && self.clipboard.checkAutoPastePermission() == false {
-            return
-        }
-        autoPasteMenuItem.state = autoPasteMenuItem.state == .on ? .off : .on
-        UserDefaults.standard.autoPaste = (autoPasteMenuItem.state == .on)
-    }
-    
-    @IBAction func changeLaunchOnLogin(_ sender: Any) {
-        launchOnLoginMenuItem.state = launchOnLoginMenuItem.state == .on ? .off : .on
-        LaunchAtLogin.isEnabled = (launchOnLoginMenuItem.state == .on)
+    @IBAction func openSettingWindow(_ sender: Any) {
+        settingsWindowController.show()
+        settingsWindowController.window?.orderFrontRegardless()
     }
     
     @IBAction func openAboutWindow(_ sender: Any) {
@@ -160,15 +176,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let message = getLatestMessage()
         if message != nil {
             let msgText = message!.text
-            if msgText.contains("code") || msgText.contains("码") || msgText.contains("コード") || msgText.contains("認証番号") {
+            let msgMatchKeywords = UserDefaults.standard.msgMatchKeywords ?? Constants.DEFAULT_MSG_MATCH_KEYWORDS
+            var matched = false
+            for keyword in msgMatchKeywords.split(separator: ";").map({ String($0) }) {
+                matched = matched || msgText.contains(keyword)
+            }
+            
+            if matched {
                 do {
-                    let re = try NSRegularExpression(pattern: codePattern, options: [])
+                    let pattern = UserDefaults.standard.msgCodeMatchPattern ?? Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
+                    let re = try NSRegularExpression(pattern: pattern, options: [])
                     let results = re.matches(in: msgText, range: NSRange(location: 0, length: msgText.count))
                     for result in results {
                         let code = (msgText as NSString).substring(with: result.range)
-                        self.clipboard.copy(text: code)
+                        ClipboardController.clipboard.copy(text: code)
                         if UserDefaults.standard.autoPaste {
-                            self.clipboard.paste()
+                            ClipboardController.clipboard.paste()
                         }
                         
                         break
