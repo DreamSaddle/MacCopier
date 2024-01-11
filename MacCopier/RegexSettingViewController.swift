@@ -4,7 +4,7 @@ import Settings
 class RegexSettingViewController: NSViewController, SettingsPane {
     public let paneIdentifier = Settings.PaneIdentifier(rawValue: "preferences_regex")
     public let paneTitle = "匹配规则"
-    public let toolbarItemIcon = NSImage(named: NSImage.infoName)!
+    public let toolbarItemIcon = NSImage(named: NSImage.touchBarNewMessageTemplateName)!
     
     override var nibName: NSNib.Name? { "RegexSettingViewController" }
 
@@ -13,7 +13,7 @@ class RegexSettingViewController: NSViewController, SettingsPane {
     
     override func viewDidLoad() {
       super.viewDidLoad()
-      self.preferredContentSize = NSSize.init(width: 400, height: 300)
+      self.preferredContentSize = NSSize.init(width: 400, height: 180)
     }
 
     override func viewWillAppear() {
@@ -23,11 +23,11 @@ class RegexSettingViewController: NSViewController, SettingsPane {
     }
     
     @IBAction func msgMatchKeywordsTextFieldChanged(_ sender: NSTextField) {
-        print("匹配关键词: ", sender.stringValue)
+//        print("匹配关键词: ", sender.stringValue)
         UserDefaults.standard.msgMatchKeywords = sender.stringValue.isEmpty ? nil : sender.stringValue
     }
     @IBAction func msgCodeMatchPatternTextFieldChanged(_ sender: NSTextField) {
-        print("验证码正则表达式: ", sender.stringValue)
+//        print("验证码正则表达式: ", sender.stringValue)
         UserDefaults.standard.msgCodeMatchPattern = sender.stringValue.isEmpty ? nil : sender.stringValue
     }
 

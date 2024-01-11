@@ -5,8 +5,8 @@ import LaunchAtLogin
 
 class GeneralSettingViewController: NSViewController, SettingsPane {
     public let paneIdentifier = Settings.PaneIdentifier(rawValue: "preferences_general")
-    public let paneTitle = "Setting"
-    public let toolbarItemIcon = NSImage(named: NSImage.infoName)!
+    public let paneTitle = "通用设置"
+    public let toolbarItemIcon = NSImage(named: NSImage.touchBarGetInfoTemplateName)!
     
     override var nibName: NSNib.Name? { "GeneralSettingViewController" }
     
@@ -16,7 +16,7 @@ class GeneralSettingViewController: NSViewController, SettingsPane {
     
     override func viewDidLoad() {
       super.viewDidLoad()
-      self.preferredContentSize = NSSize.init(width: 400, height: 300)
+      self.preferredContentSize = NSSize.init(width: 400, height: 180)
     }
 
     override func viewWillAppear() {

@@ -16,17 +16,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="M0h-VL-hMN">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="180"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <gridView ambiguous="YES" xPlacement="leading" yPlacement="top" rowAlignment="lastBaseline" rowSpacing="8" columnSpacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zrv-gY-Csh">
-                    <rect key="frame" x="20" y="177" width="370" height="103"/>
+                <gridView ambiguous="YES" xPlacement="leading" yPlacement="top" rowAlignment="lastBaseline" rowSpacing="2" columnSpacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="zrv-gY-Csh">
+                    <rect key="frame" x="20" y="35" width="370" height="125"/>
                     <constraints>
                         <constraint firstItem="rgS-Hz-Oxh" firstAttribute="trailing" secondItem="77R-W3-0SY" secondAttribute="trailing" id="fxp-Gr-KuT"/>
                         <constraint firstAttribute="trailing" secondItem="rgS-Hz-Oxh" secondAttribute="trailing" id="qZI-aF-20f"/>
                     </constraints>
                     <rows>
                         <gridRow height="25" topPadding="4" id="J9F-jv-xZa"/>
+                        <gridRow id="Yfy-SO-j3h"/>
                         <gridRow height="25" topPadding="4" id="UAj-Yb-LA9"/>
                         <gridRow height="25" topPadding="4" id="IiF-od-sbN"/>
                     </rows>
@@ -37,9 +38,9 @@
                     <gridCells>
                         <gridCell row="J9F-jv-xZa" column="jGa-Rj-aAh" id="Y9A-xl-iU8">
                             <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LuY-pZ-Bey">
-                                <rect key="frame" x="-2" y="80" width="71" height="16"/>
+                                <rect key="frame" x="-2" y="103" width="71" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="justified" title="匹配关键词" id="9tn-Hx-Qqs">
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -47,7 +48,7 @@
                         </gridCell>
                         <gridCell row="J9F-jv-xZa" column="VsX-xP-OBs" id="ZZm-fZ-bAJ">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgS-Hz-Oxh">
-                                <rect key="frame" x="120" y="78" width="100" height="21"/>
+                                <rect key="frame" x="120" y="100" width="100" height="21"/>
                                 <textFieldCell key="cell" controlSize="large" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="nwB-rh-3BU">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -58,11 +59,22 @@
                                 </connections>
                             </textField>
                         </gridCell>
+                        <gridCell row="Yfy-SO-j3h" column="jGa-Rj-aAh" id="bmE-ok-Zd8"/>
+                        <gridCell row="Yfy-SO-j3h" column="VsX-xP-OBs" id="7z4-Eu-TiM">
+                            <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dyk-Sq-D34">
+                                <rect key="frame" x="118" y="62" width="254" height="32"/>
+                                <textFieldCell key="cell" selectable="YES" title="仅处理包含指定关键字的短信，多个关键字使用分号分割" id="dZV-xF-ww1">
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </gridCell>
                         <gridCell row="UAj-Yb-LA9" column="jGa-Rj-aAh" id="Piz-a7-Hra">
                             <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gIB-KI-L2u">
-                                <rect key="frame" x="-2" y="42" width="111" height="16"/>
+                                <rect key="frame" x="-2" y="37" width="111" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="验证码正则表达式" id="RUO-ZK-q87">
-                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -70,7 +82,7 @@
                         </gridCell>
                         <gridCell row="UAj-Yb-LA9" column="VsX-xP-OBs" id="GeE-Oh-Vl3">
                             <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="77R-W3-0SY">
-                                <rect key="frame" x="120" y="41" width="100" height="21"/>
+                                <rect key="frame" x="120" y="35" width="100" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="jGL-45-bf0">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -82,11 +94,40 @@
                             </textField>
                         </gridCell>
                         <gridCell row="IiF-od-sbN" column="jGa-Rj-aAh" id="9md-gI-npE"/>
-                        <gridCell row="IiF-od-sbN" column="VsX-xP-OBs" id="X2c-R4-lcI"/>
+                        <gridCell row="IiF-od-sbN" column="VsX-xP-OBs" id="X2c-R4-lcI">
+                            <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="PBt-b2-QlL">
+                                <rect key="frame" x="118" y="9" width="217" height="16"/>
+                                <textFieldCell key="cell" selectable="YES" title="提取短信中验证码内容的正则表达式" id="UAp-dP-jMY">
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </gridCell>
                     </gridCells>
                 </gridView>
             </subviews>
             <point key="canvasLocation" x="-191" y="-58"/>
         </customView>
+        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="pR6-JP-bWN">
+            <rect key="frame" x="0.0" y="0.0" width="92" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" selectable="YES" title="Multiline Label" id="6pf-99-nzd">
+                <font key="font" usesAppearanceFont="YES"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-336" y="-206"/>
+        </textField>
+        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="IPq-lu-Khb">
+            <rect key="frame" x="0.0" y="0.0" width="37" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="LKQ-zr-cS0">
+                <font key="font" usesAppearanceFont="YES"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-337" y="-206"/>
+        </textField>
     </objects>
 </document>
