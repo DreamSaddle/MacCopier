@@ -207,25 +207,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         if smsCode == "NOT_VALID" {
                             alwaysRegex = false
                         }
-                    }else{
-                        print("无python脚本")
                     }
-                    print(msgText)
-                    print(alwaysRegex && smsCode == "")
                     if alwaysRegex && smsCode == "" {
                         // 正则表达式解析
                         let pattern = UserDefaults.standard.msgCodeMatchPattern ?? Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
-                        print(pattern)
                         let re = try NSRegularExpression(pattern: pattern)
                         let results = re.matches(in: msgText, range: NSRange(msgText.startIndex..., in:msgText))
-                        print(results)
                         for result in results {
-                            print(result)
                             smsCode = (msgText as NSString).substring(with: result.range)
                             break
                         }
                     }
-                    print("smsCode: \(smsCode)")
                     if smsCode != "" {
                         ClipboardController.clipboard.copy(text: smsCode)
                         if UserDefaults.standard.autoPaste {
