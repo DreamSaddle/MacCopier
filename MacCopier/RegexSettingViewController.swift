@@ -10,16 +10,18 @@ class RegexSettingViewController: NSViewController, SettingsPane {
 
     @IBOutlet weak var msgMatchKeywordsTextField: NSTextField!
     @IBOutlet weak var msgCodeMatchPatternTextField: NSTextField!
+    @IBOutlet weak var pythonSciprtField: NSTextField!
     
     override func viewDidLoad() {
       super.viewDidLoad()
-      self.preferredContentSize = NSSize.init(width: 400, height: 180)
+      self.preferredContentSize = NSSize.init(width: 400, height: 200)
     }
 
     override func viewWillAppear() {
       super.viewWillAppear()
       populateMsgMatchKeywordsTextField()
       populateMsgCodeMatchPatternTextField()
+      populatePythonSciprtField()
     }
     
     @IBAction func msgMatchKeywordsTextFieldChanged(_ sender: NSTextField) {
@@ -30,6 +32,11 @@ class RegexSettingViewController: NSViewController, SettingsPane {
 //        print("验证码正则表达式: ", sender.stringValue)
         UserDefaults.standard.msgCodeMatchPattern = sender.stringValue.isEmpty ? nil : sender.stringValue
     }
+    @IBAction func pythonSciprtTextFieldChanged(_ sender: NSTextField) {
+//        print("python脚本: ", sender.stringValue)
+        UserDefaults.standard.pythonSciprt = sender.stringValue.isEmpty ? nil : sender.stringValue
+    }
+    
 
     
     private func populateMsgMatchKeywordsTextField() {
@@ -38,5 +45,9 @@ class RegexSettingViewController: NSViewController, SettingsPane {
     
     private func populateMsgCodeMatchPatternTextField() {
         msgCodeMatchPatternTextField.stringValue = UserDefaults.standard.msgCodeMatchPattern ?? Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
+    }
+    
+    private func populatePythonSciprtField() {
+        pythonSciprtField.stringValue = UserDefaults.standard.pythonSciprt ?? ""
     }
 }

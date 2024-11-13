@@ -14,7 +14,7 @@ class Message {
 }
 
 struct Constants {
-    static let DEFAULT_MSG_MATCH_KEYWORDS = "码;code;認証番号;コード"
+    static let DEFAULT_MSG_MATCH_KEYWORDS = ""
     static let DEFAULT_MSG_CODE_MATCH_PATTERN = "\\b([0-9]{4,8})\\b"
 }
 
@@ -25,6 +25,7 @@ extension UserDefaults {
         static let hiddenStatusBar = "hiddenStatusBar"
         static let msgMatchKeywords = "msgMatchKeywords"
         static let msgCodeMatchPattern = "msgCodeMatchPattern"
+        static let pythonSciprt = "pythonSciprt"
     }
     
     struct ConfigValues {
@@ -49,6 +50,10 @@ extension UserDefaults {
     @objc dynamic public var msgCodeMatchPattern: String? {
         get { string(forKey: Keys.msgCodeMatchPattern) }
         set { set(newValue, forKey: Keys.msgCodeMatchPattern) }
+    }
+    @objc dynamic public var pythonSciprt: String? {
+        get { string(forKey: Keys.pythonSciprt) }
+        set { set(newValue, forKey: Keys.pythonSciprt) }
     }
 }
 
@@ -139,6 +144,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.isVisible = visible
         UserDefaults.standard.hiddenStatusBar = !visible
         hiddenStatusBarMenuItem.state = visible ? .off : .on
+        if visible {
+            NSApplication.shared.activate(ignoringOtherApps: true)
+        }
     }
     
     @IBAction func quitApp(_ sender: Any) {
@@ -176,25 +184,53 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let message = getLatestMessage()
         if message != nil {
             let msgText = message!.text
-            let msgMatchKeywords = UserDefaults.standard.msgMatchKeywords ?? Constants.DEFAULT_MSG_MATCH_KEYWORDS
+            let msgMatchKeywords = UserDefaults.standard.msgMatchKeywords ?? ""
             var matched = false
-            for keyword in msgMatchKeywords.split(separator: ";").map({ String($0) }) {
-                matched = matched || msgText.contains(keyword)
+            if msgMatchKeywords == "" {
+                matched = true
+            } else {
+                for keyword in msgMatchKeywords.split(separator: ";").map({ String($0) }) {
+                    matched = matched || msgText.contains(keyword)
+                }
             }
             
             if matched {
                 do {
-                    let pattern = UserDefaults.standard.msgCodeMatchPattern ?? Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
-                    let re = try NSRegularExpression(pattern: pattern, options: [])
-                    let results = re.matches(in: msgText, range: NSRange(location: 0, length: msgText.count))
-                    for result in results {
-                        let code = (msgText as NSString).substring(with: result.range)
-                        ClipboardController.clipboard.copy(text: code)
+                    let pythonSciprt = UserDefaults.standard.pythonSciprt ?? ""
+                    var smsCode = "", alwaysRegex = true
+                    if pythonSciprt != "" {
+                        // 执行python脚本解析
+                        smsCode =  runPythonScript(pythonScript: pythonSciprt, sms: msgText) ?? ""
+                        if smsCode == "ERROR" || smsCode == "NOT_VALID" {
+                            smsCode = ""
+                        }
+                        if smsCode == "NOT_VALID" {
+                            alwaysRegex = false
+                        }
+                    }else{
+                        print("无python脚本")
+                    }
+                    print(msgText)
+                    print(alwaysRegex && smsCode == "")
+                    if alwaysRegex && smsCode == "" {
+                        // 正则表达式解析
+                        let pattern = UserDefaults.standard.msgCodeMatchPattern ?? Constants.DEFAULT_MSG_CODE_MATCH_PATTERN
+                        print(pattern)
+                        let re = try NSRegularExpression(pattern: pattern)
+                        let results = re.matches(in: msgText, range: NSRange(msgText.startIndex..., in:msgText))
+                        print(results)
+                        for result in results {
+                            print(result)
+                            smsCode = (msgText as NSString).substring(with: result.range)
+                            break
+                        }
+                    }
+                    print("smsCode: \(smsCode)")
+                    if smsCode != "" {
+                        ClipboardController.clipboard.copy(text: smsCode)
                         if UserDefaults.standard.autoPaste {
                             ClipboardController.clipboard.paste()
                         }
-                        
-                        break
                     }
                 } catch {
                     print("Regex Error.")
@@ -269,6 +305,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sqlite3_finalize(statement)
         
         return message
+    }
+    
+    
+    func runPythonScript(pythonScript: String,sms: String) -> String? {
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
+        task.arguments = ["-c", pythonScript, sms]
+        let outputPipe = Pipe()
+        task.standardOutput = outputPipe
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+            let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+            let output = String(data: outputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            return output
+        } catch {
+            print("Error running Python script: \(error)")
+            return "ERROR"
+        }
     }
     
     

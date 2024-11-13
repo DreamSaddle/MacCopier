@@ -16,7 +16,7 @@ class GeneralSettingViewController: NSViewController, SettingsPane {
     
     override func viewDidLoad() {
       super.viewDidLoad()
-      self.preferredContentSize = NSSize.init(width: 400, height: 180)
+      self.preferredContentSize = NSSize.init(width: 400, height: 200)
     }
 
     override func viewWillAppear() {
