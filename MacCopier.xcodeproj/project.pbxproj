@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA0B3572287020F400D5331F /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B3571287020F400D5331F /* LaunchAtLogin */; };
 		AA1F6EF0286FD3BE00350040 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F6EEF286FD3BE00350040 /* About.swift */; };
 		AA30750E28702C140070C8AC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AA30750D28702C140070C8AC /* .gitignore */; };
 		AA40E16F28695528000875C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E16E28695528000875C3 /* AppDelegate.swift */; };
@@ -19,7 +18,8 @@
 		AA40E18D2869552B000875C3 /* MacCopierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40E18C2869552B000875C3 /* MacCopierUITestsLaunchTests.swift */; };
 		AA4496DB2B4D62BA004EA9A9 /* GeneralSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4496DA2B4D62BA004EA9A9 /* GeneralSettingViewController.xib */; };
 		AA4496DD2B4D62EB004EA9A9 /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4496DC2B4D62EB004EA9A9 /* GeneralSettingViewController.swift */; };
-		AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */ = {isa = PBXBuildFile; productRef = AA8299FE2879BA0200FCA4BE /* Sauce */; };
+		AA532FDD2D55E097006FB340 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = AA532FDC2D55E097006FB340 /* LaunchAtLogin */; };
+		AA532FDF2D55E0AD006FB340 /* Sauce in Frameworks */ = {isa = PBXBuildFile; productRef = AA532FDE2D55E0AD006FB340 /* Sauce */; };
 		AA829A012879BB2900FCA4BE /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA829A002879BB2900FCA4BE /* Clipboard.swift */; };
 		AAA80DD12B4EC10200B36D7C /* RegexSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA80DD02B4EC10200B36D7C /* RegexSettingViewController.xib */; };
 		AAA80DD32B4EC11400B36D7C /* RegexSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA80DD22B4EC11400B36D7C /* RegexSettingViewController.swift */; };
@@ -70,9 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA532FDF2D55E0AD006FB340 /* Sauce in Frameworks */,
+				AA532FDD2D55E097006FB340 /* LaunchAtLogin in Frameworks */,
 				AAD54C722B4987AC00BF113E /* Settings in Frameworks */,
-				AA8299FF2879BA0200FCA4BE /* Sauce in Frameworks */,
-				AA0B3572287020F400D5331F /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,9 +184,9 @@
 			);
 			name = MacCopier;
 			packageProductDependencies = (
-				AA0B3571287020F400D5331F /* LaunchAtLogin */,
-				AA8299FE2879BA0200FCA4BE /* Sauce */,
 				AAD54C712B4987AC00BF113E /* Settings */,
+				AA532FDC2D55E097006FB340 /* LaunchAtLogin */,
+				AA532FDE2D55E0AD006FB340 /* Sauce */,
 			);
 			productName = MacCopier;
 			productReference = AA40E16B28695528000875C3 /* MacCopier.app */;
@@ -261,9 +261,9 @@
 			);
 			mainGroup = AA40E16228695528000875C3;
 			packageReferences = (
-				AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
-				AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */,
 				AAD54C702B4987AC00BF113E /* XCRemoteSwiftPackageReference "Settings" */,
+				AA532FDA2D55DF51006FB340 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */,
+				AA532FDB2D55DFDC006FB340 /* XCRemoteSwiftPackageReference "Sauce" */,
 			);
 			productRefGroup = AA40E16C28695528000875C3 /* Products */;
 			projectDirPath = "";
@@ -517,7 +517,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.taohan.MacCopier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -543,7 +543,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.taohan.MacCopier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -685,20 +685,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+		AA532FDA2D55DF51006FB340 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://gitee.com/leegithub/LaunchAtLogin.git";
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Legacy";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				kind = exactVersion;
+				version = 5.0.2;
 			};
 		};
-		AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */ = {
+		AA532FDB2D55DFDC006FB340 /* XCRemoteSwiftPackageReference "Sauce" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://gitee.com/taohan/Sauce.git";
+			repositoryURL = "https://github.com/Clipy/Sauce.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				kind = exactVersion;
+				version = 2.4.1;
 			};
 		};
 		AAD54C702B4987AC00BF113E /* XCRemoteSwiftPackageReference "Settings" */ = {
@@ -712,14 +712,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AA0B3571287020F400D5331F /* LaunchAtLogin */ = {
+		AA532FDC2D55E097006FB340 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AA0B3570287020F400D5331F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			package = AA532FDA2D55DF51006FB340 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */;
 			productName = LaunchAtLogin;
 		};
-		AA8299FE2879BA0200FCA4BE /* Sauce */ = {
+		AA532FDE2D55E0AD006FB340 /* Sauce */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AA8299FD2879BA0200FCA4BE /* XCRemoteSwiftPackageReference "Sauce" */;
+			package = AA532FDB2D55DFDC006FB340 /* XCRemoteSwiftPackageReference "Sauce" */;
 			productName = Sauce;
 		};
 		AAD54C712B4987AC00BF113E /* Settings */ = {

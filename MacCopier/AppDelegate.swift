@@ -1,7 +1,6 @@
 import Cocoa
 import SwiftUI
 import SQLite3
-import LaunchAtLogin
 import Settings
 
 class Message {
