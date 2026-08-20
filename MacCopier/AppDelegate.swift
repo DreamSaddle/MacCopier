@@ -199,13 +199,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     var smsCode = "", alwaysRegex = true
                     if pythonSciprt != "" {
                         // 执行python脚本解析
-                        smsCode =  runPythonScript(pythonScript: pythonSciprt, sms: msgText) ?? ""
-                        if smsCode == "ERROR" || smsCode == "NOT_VALID" {
-                            smsCode = ""
-                        }
-                        if smsCode == "NOT_VALID" {
+                        let scriptResult = runPythonScript(pythonScript: pythonSciprt, sms: msgText) ?? "ERROR"
+                        if scriptResult == "NOT_VALID" {
+                            // 脚本判定不是验证码短信, 不再回退正则
                             alwaysRegex = false
+                        } else if scriptResult != "ERROR" {
+                            smsCode = scriptResult
                         }
+                        // ERROR 时 smsCode 保持为空, 走下面的正则兜底
                     }
                     if alwaysRegex && smsCode == "" {
                         // 正则表达式解析
@@ -254,28 +255,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func getLatestMessage() -> Message? {
+        // 新版 macOS 起，消息正文可能只存于 attributedBody(typedstream 二进制)，text 列为空
         let sql = """
         select
             (message.date / 1000000000 + 978307200) AS message_date,
-            message.text
+            message.text,
+            message.attributedBody
         from
             message
-                left join chat_message_join
-                        on chat_message_join.message_id = message.ROWID
-                left join chat
-                        on chat.ROWID = chat_message_join.chat_id
-                left join handle
-                        on message.handle_id = handle.ROWID
         where
             is_from_me = 0
-            and text is not null
-            and length(text) > 0
             and (
-                text glob '*[0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
-                or text glob '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*'
+                (text is not null and length(text) > 0)
+                or (attributedBody is not null and length(attributedBody) > 0)
             )
         order by
             message.date desc
@@ -286,16 +278,59 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK {
             if sqlite3_step(statement) == SQLITE_ROW {
                 let messageDate = sqlite3_column_int(statement, 0)
-                let text = String(cString: sqlite3_column_text(statement, 1))
-                
+                var text = ""
+                if let cText = sqlite3_column_text(statement, 1) {
+                    text = String(cString: cText)
+                }
+                if text.isEmpty {
+                    if let blob = sqlite3_column_blob(statement, 2) {
+                        let length = Int(sqlite3_column_bytes(statement, 2))
+                        let data = Data(bytes: blob, count: length)
+                        text = decodeAttributedBody(data) ?? ""
+                    }
+                }
+
                 message = Message(messageDate: messageDate, text: text)
             } else {
                 print("消息查询失败")
             }
         }
         sqlite3_finalize(statement)
-        
+
         return message
+    }
+
+    // 从 attributedBody 的 typedstream 二进制中提取正文:
+    // 正文 NSString 位于 "NSString" 类标记之后, 由 0x2B 对象标签引出,
+    // 长度前缀: 0x81 = 后跟 2 字节小端长度, 0x82 = 后跟 4 字节小端长度, 其它 = 单字节长度
+    func decodeAttributedBody(_ data: Data) -> String? {
+        let marker = Data("NSString".utf8)
+        guard let markerRange = data.range(of: marker) else { return nil }
+        let bytes = [UInt8](data)
+        var i = markerRange.upperBound
+        while i < bytes.count && bytes[i] != 0x2B {
+            i += 1
+        }
+        guard i < bytes.count else { return nil }
+        i += 1
+        guard i < bytes.count else { return nil }
+
+        let length: Int
+        let tag = bytes[i]
+        if tag == 0x81 {
+            guard i + 2 < bytes.count else { return nil }
+            length = Int(bytes[i + 1]) | Int(bytes[i + 2]) << 8
+            i += 3
+        } else if tag == 0x82 {
+            guard i + 4 < bytes.count else { return nil }
+            length = Int(bytes[i + 1]) | Int(bytes[i + 2]) << 8 | Int(bytes[i + 3]) << 16 | Int(bytes[i + 4]) << 24
+            i += 5
+        } else {
+            length = Int(tag)
+            i += 1
+        }
+        guard length > 0, i + length <= bytes.count else { return nil }
+        return String(bytes: bytes[i..<(i + length)], encoding: .utf8)
     }
     
     
